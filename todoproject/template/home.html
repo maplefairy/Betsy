@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+ <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="p-3 shadow banner">
+                        <div class="banner-text">
+                            <h1> TO-DO! </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post" class="p-3 shadow">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="task" placeholder="Enter your task"><br>
+                </div>
+                <div class="form-group">
+                     <input type="text" class="form-control" name="priority" placeholder="Enter your priority"><br>
+                </div>
+                 <div class="form-group">
+                     <input type="date" class="form-control" name="date" placeholder="Enter date limit"><br>
+                </div>
+                <input type="submit" class="btn btn-success">
+            </form>
+            {% for i in task %}
+            {{i.name}}<br>
+            {{i.priority}}<br>
+            {% endfor %}
+        </div>
+        <div class="col-md-6">
+            <h4>Tasks To Be Completed:-)</h4>
+            {% for i in task1 %}
+            <div class="p-3 shadow-lg card" >
+                <div class="card-body">
+                    <h5 class="card-tittle">{{i.name}}</h5>
+                    <p><b>{{i.priority}}</b></p>
+                    <p><b>{{i.date}}</b></p>
+                    <a class="btn btn-danger" href="{% url 'delete' i.id %}">Done</a>
+                    <a class="btn btn-success" href="{% url 'update' i.id %}">Update</a>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
